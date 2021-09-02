@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AddComponent } from './pages/add/add.component';
 import { HeroeComponent } from './pages/heroe/heroe.component';
+import { HeroesHomeComponent } from './pages/heroes-home/heroes-home.component';
 import { ListadoComponent } from './pages/listado/listado.component';
 import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: HeroesHomeComponent,
     children: [
       {path: 'listado', component: ListadoComponent},
       {path: 'add', component: AddComponent},
