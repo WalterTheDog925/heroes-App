@@ -7,9 +7,12 @@ import { MaterialModule } from '../material/material.module';
 
 import { AddComponent } from './pages/add/add.component';
 import { HeroeComponent } from './pages/heroe/heroe.component';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
 import { HeroesHomeComponent } from './pages/heroes-home/heroes-home.component';
 import { ListadoComponent } from './pages/listado/listado.component';
 import { SearchComponent } from './pages/search/search.component';
+
+import { ImagenPipe } from './pipes/imagen.pipe';
 
 
 
@@ -17,9 +20,12 @@ import { SearchComponent } from './pages/search/search.component';
   declarations: [
     AddComponent,
     HeroeComponent,
+    HeroCardComponent,
     HeroesHomeComponent,
     ListadoComponent,
-    SearchComponent
+    SearchComponent,
+    
+    ImagenPipe
   ],
   imports: [
     CommonModule,
