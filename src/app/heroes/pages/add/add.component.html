@@ -1,1 +1,73 @@
-<p>add works!</p>
+<h1>New Hero <small>{{hero.superhero}}</small></h1>
+
+<div fxLayout="row" fxLayoutGap="40px" fxLayout.xs="column">
+    <div fxFlex="50" fxLayout="column">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+            <mat-form-field fxFlex="100">
+                <mat-label>SuperHero</mat-label>
+                <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="hero.superhero"
+                    required>
+            </mat-form-field>
+    
+            <mat-form-field fxFlex="100">
+                <mat-label>Alter Ego</mat-label>
+                <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="hero.alter_ego"
+                    required>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field fxFlex="100">
+            <mat-label>First Appearance</mat-label>
+            <input
+                matInput
+                type="text"
+                [(ngModel)]="hero.first_appearance"
+                required>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100">
+            <mat-label>Characters</mat-label>
+            <input
+                matInput
+                type="text"
+                [(ngModel)]="hero.characters"
+                required>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="100">
+            <mat-label>Publisher</mat-label>
+                <mat-select [(ngModel)]="hero.publisher" required>
+                    <mat-option *ngFor="let publisher of publishers" [value]="publisher.id">
+                        {{publisher.desc}}
+                    </mat-option>
+                </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Picture Url</mat-label>
+            <input
+                matInput
+                type="url"
+                [(ngModel)]="hero.alt_img"
+                required>
+        </mat-form-field>
+        
+        <br>
+
+        <button mat-raised-button color="accent" (click)="save()">
+            Save
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
+
+    <div fxFlex="50">
+        <img [src]="hero | image">
+    </div>
+
+</div>
