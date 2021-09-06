@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Hero, Publisher } from '../../interfaces/heroes.interface';
@@ -7,8 +8,11 @@ import { HeroesService } from '../../services/heroes.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styles: [
-  ]
+  styles: [`
+    img {
+      width: 100%;
+    }
+  `]
 })
 export class AddComponent implements OnInit {
 
@@ -35,10 +39,13 @@ export class AddComponent implements OnInit {
   constructor(
     private heroesService: HeroesService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
+    if(!this.router.url.includes('edit')) return;
+
     this.activatedRoute.params
       .pipe(
         switchMap(({id}) => this.heroesService.getHeroById(id))
@@ -49,16 +56,28 @@ export class AddComponent implements OnInit {
   save() {
     if(this.hero.superhero.trim().length === 0) return;
     
-    if(this.hero.id) {
-      this.heroesService.updateHero(this.hero)
-      .subscribe(hero => console.log('Updating', hero))
-    } else {
+    (this.hero.id) 
+      // Update 
+      ? this.heroesService.updateHero(this.hero).subscribe(hero => this.showSnackBar('Hero Updated'))
+      // Create
+      : this.heroesService.addhero(this.hero)
+        .subscribe(hero => {
+          this.router.navigate(['/heroes/edit', hero.id])
+          this.showSnackBar('Hero Created');
+        });
+  }
 
-    }
-    this.heroesService.addhero(this.hero)
-      .subscribe(hero => {
-        this.router.navigate(['/heroes/edit', hero.id]);
+  delete() {
+    this.heroesService.deleteHero(this.hero.id!)
+      .subscribe(resp => {
+        this.router.navigate(['/heroes']);
       })
+  }
+
+  showSnackBar(msg: string) {
+    this.snackBar.open(msg, 'Close', {
+      duration: 2500
+    });
   }
 
 }

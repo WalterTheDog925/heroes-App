@@ -60,10 +60,20 @@
         
         <br>
 
-        <button mat-raised-button color="accent" (click)="save()">
-            Save
-            <mat-icon>save</mat-icon>
-        </button>
+        <div fxLayout>
+            <button mat-raised-button color="accent" (click)="save()">
+                Save
+                <mat-icon>save</mat-icon>
+            </button>
+
+            <span class="spacer"></span>
+            
+            <button *ngIf="hero.id" mat-raised-button color="warn" (click)="delete()">
+                Delete
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
     </div>
 
     <div fxFlex="50">
