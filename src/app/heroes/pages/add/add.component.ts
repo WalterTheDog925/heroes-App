@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Hero, Publisher } from '../../interfaces/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
@@ -34,7 +34,8 @@ export class AddComponent implements OnInit {
 
   constructor(
     private heroesService: HeroesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -55,8 +56,8 @@ export class AddComponent implements OnInit {
 
     }
     this.heroesService.addhero(this.hero)
-      .subscribe(resp => {
-        console.log('Respuesta', resp)
+      .subscribe(hero => {
+        this.router.navigate(['/heroes/edit', hero.id]);
       })
   }
 
